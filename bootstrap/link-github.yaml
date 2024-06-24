@@ -1,0 +1,11 @@
+apiVersion: console.openshift.io/v1
+kind: ConsoleLink
+metadata:
+  name: github-demo-llm-journey
+spec:
+  href: 'https://github.com/redhat-na-ssa/demo-llm-journey'
+  location: ApplicationMenu
+  text: GitHub - LLM Journey
+  applicationMenu:
+    section: Git Repos
+    imageURL: /static/assets/github.svg
