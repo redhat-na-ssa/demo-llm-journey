@@ -10,7 +10,7 @@ resources:
   - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/local-storage/operator/overlays/stable
 
   # ODF
-  - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/operator/overlays/stable-4.13
+  - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/operator/overlays/stable-4.14
   - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/instance/overlays/local-storage
   - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/openshift-data-foundation/config-helpers/node-labeler/overlays/default
 
