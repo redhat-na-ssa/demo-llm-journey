@@ -24,3 +24,6 @@ spec:
         kind: ImageStreamTag
         name: tritonserver:latest
     type: Docker
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
