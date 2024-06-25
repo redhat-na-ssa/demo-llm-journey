@@ -28,7 +28,7 @@ spec:
       containers:
       - image: image-registry.openshift-image-registry.svc:5000/triton-vllm-inference-server/triton-vllm-inference-server@sha256:a7a82f451ee052f8e1e9fc0b770c54c9efa12b5ae723447922ef8e358e54fd22
         imagePullPolicy: Always
-        name: triton-vllm-inference-server
+        name: triton-vllm
         ports:
         - containerPort: 8000
           protocol: TCP
