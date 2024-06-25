@@ -9,5 +9,5 @@ spec:
   resources:
     requests:
       storage: 200Gi
-  # storageClassName: ocs-storagecluster-cephfs
+  storageClassName: ocs-storagecluster-cephfs
   volumeMode: Filesystem
