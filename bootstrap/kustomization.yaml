@@ -4,6 +4,15 @@ kind: Kustomization
 resources:
   - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/demos/nvidia-gpu-autoscale?ref=v0.04
   - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/bootstrap/install-web-terminal?ref=v0.04
+
+  # ODF
+  - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/components/operators/odf-operator/operator/overlays/stable-4.14?ref=v0.04
+  - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/components/operators/odf-operator/instance/overlays/aws?ref=v0.04
+
+  # ODF Machine Set
+  - odf-machineset
+
+  # Console application links
   - link-github.yaml
 
 patches:
@@ -26,3 +35,7 @@ patches:
         value: 
           name: INSTANCE_TYPE
           value: g5.2xlarge
+  - target:
+      kind: StorageCluster
+      name: ocs-storagecluster
+    path: storagecluster.yaml
