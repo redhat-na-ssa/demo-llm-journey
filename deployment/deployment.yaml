@@ -49,10 +49,13 @@ spec:
           failureThreshold: 3
         ports:
         - containerPort: 8000
+          name: http
           protocol: TCP
         - containerPort: 8001
+          name: grpc
           protocol: TCP
         - containerPort: 8002
+          name: metrics
           protocol: TCP
         resources: {}
         volumeMounts:
