@@ -58,6 +58,9 @@ spec:
   replicas: 3
   template:
     spec:
+      metadata:
+        labels:
+          cluster.ocs.openshift.io/openshift-storage: ''
       providerSpec:
         value:
           blockDevices:
@@ -83,8 +86,4 @@ YAML
     patch "${MACHINE_SET_NAME}" \
     --type=merge --patch "$(cat /tmp/patch.yaml)"
 
-  # patch labels
-  oc -n openshift-machine-api \
-    patch "${MACHINE_SET_NAME}" \
-    --type=merge --patch '{"spec":{"template":{"spec":{"metadata":{"labels":{"cluster.ocs.openshift.io/openshift-storage":""}}}}}}'
 }
