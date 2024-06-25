@@ -15,8 +15,8 @@ resources:
   # - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/openshift-data-foundation/config-helpers/node-labeler/overlays/default
 
   # AWS EFS CSI Driver
-  - ../compoents/operators/aws-efs-csi-driver-operator/instance/overlays/default
-  - ../compoents/operators/aws-efs-csi-driver-operator/operator/overlays/stable
+  - ../components/operators/aws-efs-csi-driver-operator/instance/overlays/default
+  - ../components/operators/aws-efs-csi-driver-operator/operator/overlays/stable
   # Console application links
   - link-github.yaml
 
