@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"triton-vllm-inference-server:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"triton-vllm-inference-server\")].image","pause":"true"}]'
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"triton-vllm-inference-server:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"triton-vllm\")].image","pause":"true"}]'
   labels:
     app: triton-vllm-inference-server
     app.kubernetes.io/component: triton-vllm-inference-server
