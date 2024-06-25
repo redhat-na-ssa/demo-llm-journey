@@ -1,0 +1,12 @@
+FROM nvcr.io/nvidia/tritonserver:24.05-vllm-python-py3
+
+# VOLUME [ "/opt/app-root/models", "/opt/app-root/model_repository" ]
+
+USER 1001
+
+# 8000: REST Interface
+# 8001: gRPC Interface
+# 8002: Model performance monitoring
+# EXPOSE 8000 8001 8002
+
+# ENTRYPOINT /opt/nvidia/nvidia_entrypoint.sh

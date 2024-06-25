@@ -12,10 +12,10 @@ spec:
   resources: {}
   runPolicy: Serial
   source:
-    contextDir: /
+    contextDir: /container
     git:
-      ref: main
-      uri: https://github.com/carlmes/triton-vllm-inference-server
+      ref: deployment
+      uri: https://github.com/redhat-na-ssa/demo-llm-journey
     type: Git
   strategy:
     dockerStrategy:
