@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"triton-vllm-inference-server:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"triton-vllm\")].image","pause":"true"}]'
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"triton-vllm-inference-server:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"inference-server\")].image","pause":"true"}]'
   labels:
     app: triton-vllm-inference-server
     app.kubernetes.io/component: triton-vllm-inference-server
@@ -26,9 +26,9 @@ spec:
         deployment: triton-vllm-inference-server
     spec:
       containers:
-      - image: image-registry.openshift-image-registry.svc:5000/triton-vllm-inference-server/triton-vllm-inference-server@sha256:a7a82f451ee052f8e1e9fc0b770c54c9efa12b5ae723447922ef8e358e54fd22
+      - image: triton-vllm-inference-server:latest
         imagePullPolicy: Always
-        name: triton-vllm
+        name: inference-server
         readinessProbe:
           httpGet:
             path: /v2/health/ready
