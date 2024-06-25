@@ -7,3 +7,7 @@ Demo LLM things
 ```sh
 until oc apply -k bootstrap; do : ; done
 ```
+
+## Related Links
+
+- 
