@@ -32,6 +32,7 @@ ocp_aws_clone_worker_machineset(){
           /^  name:/ s/cluster-.*/'"${SHORT_NAME}"'/g
           /name/ s/-worker/-'"${SHORT_NAME}"'/g
           s/instanceType.*/instanceType: '"${INSTANCE_TYPE}"'/
+          /cluster-api-autoscaler/d
           s/replicas.*/replicas: 0/' | \
       oc apply -f -
   fi
