@@ -44,9 +44,11 @@ run_triton(){
   which tritonserver || return
   [ -d "${MODEL_REPOSITORY}" ] || return
 
+  echo "MODEL_REPOSITORY=${MODEL_REPOSITORY}"
+
   # ENTRYPOINT ["/opt/nvidia/nvidia_entrypoint.sh", "tritonserver", "--model-repository", "/triton-inference-server/docs/examples/model_repository"]
   tritonserver \
-    --model-repository=${MODEL_REPOSITORY} \
+    --model-repository="${MODEL_REPOSITORY}" \
     --model-control-mode=poll \
     --repository-poll-secs=60
 }
@@ -55,5 +57,5 @@ usage
 
 run_init
 run_triton
-run_default
+run_default "$@"
 run_sleep
