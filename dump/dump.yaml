@@ -1,0 +1,591 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      k8s.ovn.org/pod-networks: '{"default":{"ip_addresses":["10.128.0.91/23"],"mac_address":"0a:58:0a:80:00:5b","gateway_ips":["10.128.0.1"],"routes":[{"dest":"10.128.0.0/14","nextHop":"10.128.0.1"},{"dest":"172.30.0.0/16","nextHop":"10.128.0.1"},{"dest":"100.64.0.0/16","nextHop":"10.128.0.1"}],"ip_address":"10.128.0.91/23","gateway_ip":"10.128.0.1"}}'
+      k8s.v1.cni.cncf.io/network-status: |-
+        [{
+            "name": "ovn-kubernetes",
+            "interface": "eth0",
+            "ips": [
+                "10.128.0.91"
+            ],
+            "mac": "0a:58:0a:80:00:5b",
+            "default": true,
+            "dns": {}
+        }]
+      openshift.io/generated-by: OpenShiftWebConsole
+      openshift.io/scc: restricted-v2
+      seccomp.security.alpha.kubernetes.io/pod: runtime/default
+    creationTimestamp: "2024-06-25T16:37:44Z"
+    generateName: triton-vllm-inference-server-c9c7d6c4c-
+    labels:
+      app: triton-vllm-inference-server
+      deployment: triton-vllm-inference-server
+      pod-template-hash: c9c7d6c4c
+    name: triton-vllm-inference-server-c9c7d6c4c-dzdqm
+    namespace: triton-vllm-inference-server
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: triton-vllm-inference-server-c9c7d6c4c
+      uid: 4c0cd272-93ff-412f-832a-77ea41db82a6
+    resourceVersion: "521946"
+    uid: e8df710c-e517-468a-9bc7-c13cab760be9
+  spec:
+    containers:
+    - image: image-registry.openshift-image-registry.svc:5000/triton-vllm-inference-server/triton-vllm-inference-server@sha256:a7a82f451ee052f8e1e9fc0b770c54c9efa12b5ae723447922ef8e358e54fd22
+      imagePullPolicy: Always
+      name: triton-vllm-inference-server
+      ports:
+      - containerPort: 8000
+        protocol: TCP
+      - containerPort: 8001
+        protocol: TCP
+      - containerPort: 8002
+        protocol: TCP
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        runAsNonRoot: true
+        runAsUser: 1000700000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /opt/app-root/models
+        name: model-cache
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-z9nkw
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    imagePullSecrets:
+    - name: default-dockercfg-r9npk
+    nodeName: ip-10-0-11-30.us-east-2.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000700000
+      seLinuxOptions:
+        level: s0:c26,c25
+      seccompProfile:
+        type: RuntimeDefault
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: model-cache
+      persistentVolumeClaim:
+        claimName: model-cache
+    - name: kube-api-access-z9nkw
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+        - configMap:
+            items:
+            - key: service-ca.crt
+              path: service-ca.crt
+            name: openshift-service-ca.crt
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-06-25T16:37:44Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-06-25T16:37:53Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-06-25T16:37:53Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-06-25T16:37:44Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: cri-o://3d3c2a8821e57b65904f25eecf68b516995dafe62aa3c81c171f32e6a64f3f97
+      image: image-registry.openshift-image-registry.svc:5000/triton-vllm-inference-server/triton-vllm-inference-server@sha256:a7a82f451ee052f8e1e9fc0b770c54c9efa12b5ae723447922ef8e358e54fd22
+      imageID: image-registry.openshift-image-registry.svc:5000/triton-vllm-inference-server/triton-vllm-inference-server@sha256:a7a82f451ee052f8e1e9fc0b770c54c9efa12b5ae723447922ef8e358e54fd22
+      lastState: {}
+      name: triton-vllm-inference-server
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-06-25T16:37:53Z"
+    hostIP: 10.0.11.30
+    phase: Running
+    podIP: 10.128.0.91
+    podIPs:
+    - ip: 10.128.0.91
+    qosClass: BestEffort
+    startTime: "2024-06-25T16:37:44Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftWebConsole
+    creationTimestamp: "2024-06-24T22:49:54Z"
+    labels:
+      app: triton-vllm-inference-server
+      app.kubernetes.io/component: triton-vllm-inference-server
+      app.kubernetes.io/instance: triton-vllm-inference-server
+      app.kubernetes.io/name: triton-vllm-inference-server
+      app.kubernetes.io/part-of: triton-vllm-inference-server-app
+      app.openshift.io/runtime-version: latest
+    name: triton-vllm-inference-server
+    namespace: triton-vllm-inference-server
+    resourceVersion: "91826"
+    uid: e5371709-911e-4f15-969b-40183147e6d1
+  spec:
+    clusterIP: 172.30.220.155
+    clusterIPs:
+    - 172.30.220.155
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: 8000-tcp
+      port: 8000
+      protocol: TCP
+      targetPort: 8000
+    - name: 8001-tcp
+      port: 8001
+      protocol: TCP
+      targetPort: 8001
+    - name: 8002-tcp
+      port: 8002
+      protocol: TCP
+      targetPort: 8002
+    selector:
+      app: triton-vllm-inference-server
+      deployment: triton-vllm-inference-server
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      alpha.image.policy.openshift.io/resolve-names: '*'
+      app.openshift.io/route-disabled: "false"
+      deployment.kubernetes.io/revision: "3"
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"triton-vllm-inference-server:latest","namespace":"triton-vllm-inference-server"},"fieldPath":"spec.template.spec.containers[?(@.name==\"triton-vllm-inference-server\")].image","pause":"false"}]'
+      openshift.io/generated-by: OpenShiftWebConsole
+    creationTimestamp: "2024-06-24T22:49:54Z"
+    generation: 3
+    labels:
+      app: triton-vllm-inference-server
+      app.kubernetes.io/component: triton-vllm-inference-server
+      app.kubernetes.io/instance: triton-vllm-inference-server
+      app.kubernetes.io/name: triton-vllm-inference-server
+      app.kubernetes.io/part-of: triton-vllm-inference-server-app
+      app.openshift.io/runtime-namespace: triton-vllm-inference-server
+    name: triton-vllm-inference-server
+    namespace: triton-vllm-inference-server
+    resourceVersion: "521960"
+    uid: 831074c4-daad-456c-a1f5-371a05cd9b72
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: triton-vllm-inference-server
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftWebConsole
+        creationTimestamp: null
+        labels:
+          app: triton-vllm-inference-server
+          deployment: triton-vllm-inference-server
+      spec:
+        containers:
+        - image: image-registry.openshift-image-registry.svc:5000/triton-vllm-inference-server/triton-vllm-inference-server@sha256:a7a82f451ee052f8e1e9fc0b770c54c9efa12b5ae723447922ef8e358e54fd22
+          imagePullPolicy: Always
+          name: triton-vllm-inference-server
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          - containerPort: 8001
+            protocol: TCP
+          - containerPort: 8002
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/models
+            name: model-cache
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: model-cache
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-06-25T00:46:40Z"
+      lastUpdateTime: "2024-06-25T00:46:40Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-06-24T22:49:54Z"
+      lastUpdateTime: "2024-06-25T16:37:53Z"
+      message: ReplicaSet "triton-vllm-inference-server-c9c7d6c4c" has successfully
+        progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 3
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      alpha.image.policy.openshift.io/resolve-names: '*'
+      app.openshift.io/route-disabled: "false"
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "2"
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"triton-vllm-inference-server:latest","namespace":"triton-vllm-inference-server"},"fieldPath":"spec.template.spec.containers[?(@.name==\"triton-vllm-inference-server\")].image","pause":"false"}]'
+      openshift.io/generated-by: OpenShiftWebConsole
+    creationTimestamp: "2024-06-25T16:37:32Z"
+    generation: 2
+    labels:
+      app: triton-vllm-inference-server
+      deployment: triton-vllm-inference-server
+      pod-template-hash: 76b5b8759b
+    name: triton-vllm-inference-server-76b5b8759b
+    namespace: triton-vllm-inference-server
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: triton-vllm-inference-server
+      uid: 831074c4-daad-456c-a1f5-371a05cd9b72
+    resourceVersion: "521958"
+    uid: 88d67a09-2f12-4594-a5d6-4c9c558a04ec
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: triton-vllm-inference-server
+        pod-template-hash: 76b5b8759b
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftWebConsole
+        creationTimestamp: null
+        labels:
+          app: triton-vllm-inference-server
+          deployment: triton-vllm-inference-server
+          pod-template-hash: 76b5b8759b
+      spec:
+        containers:
+        - image: image-registry.openshift-image-registry.svc:5000/triton-vllm-inference-server/triton-vllm-inference-server@sha256:a7a82f451ee052f8e1e9fc0b770c54c9efa12b5ae723447922ef8e358e54fd22
+          imagePullPolicy: Always
+          name: triton-vllm-inference-server
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          - containerPort: 8001
+            protocol: TCP
+          - containerPort: 8002
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      alpha.image.policy.openshift.io/resolve-names: '*'
+      app.openshift.io/route-disabled: "false"
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"triton-vllm-inference-server:latest","namespace":"triton-vllm-inference-server"},"fieldPath":"spec.template.spec.containers[?(@.name==\"triton-vllm-inference-server\")].image","pause":"false"}]'
+      openshift.io/generated-by: OpenShiftWebConsole
+    creationTimestamp: "2024-06-24T22:49:54Z"
+    generation: 2
+    labels:
+      app: triton-vllm-inference-server
+      deployment: triton-vllm-inference-server
+      pod-template-hash: 86866c7ff8
+    name: triton-vllm-inference-server-86866c7ff8
+    namespace: triton-vllm-inference-server
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: triton-vllm-inference-server
+      uid: 831074c4-daad-456c-a1f5-371a05cd9b72
+    resourceVersion: "521700"
+    uid: d3cc240c-e0c5-4576-99d3-809fe18d175c
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: triton-vllm-inference-server
+        pod-template-hash: 86866c7ff8
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftWebConsole
+        creationTimestamp: null
+        labels:
+          app: triton-vllm-inference-server
+          deployment: triton-vllm-inference-server
+          pod-template-hash: 86866c7ff8
+      spec:
+        containers:
+        - image: image-registry.openshift-image-registry.svc:5000/triton-vllm-inference-server/triton-vllm-inference-server@sha256:a7a82f451ee052f8e1e9fc0b770c54c9efa12b5ae723447922ef8e358e54fd22
+          imagePullPolicy: Always
+          name: triton-vllm-inference-server
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          - containerPort: 8001
+            protocol: TCP
+          - containerPort: 8002
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/model_repository
+            name: triton-vllm-inference-server-1
+          - mountPath: /opt/app-root/models
+            name: triton-vllm-inference-server-2
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir: {}
+          name: triton-vllm-inference-server-1
+        - emptyDir: {}
+          name: triton-vllm-inference-server-2
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      alpha.image.policy.openshift.io/resolve-names: '*'
+      app.openshift.io/route-disabled: "false"
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "3"
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"triton-vllm-inference-server:latest","namespace":"triton-vllm-inference-server"},"fieldPath":"spec.template.spec.containers[?(@.name==\"triton-vllm-inference-server\")].image","pause":"false"}]'
+      openshift.io/generated-by: OpenShiftWebConsole
+    creationTimestamp: "2024-06-25T16:37:44Z"
+    generation: 1
+    labels:
+      app: triton-vllm-inference-server
+      deployment: triton-vllm-inference-server
+      pod-template-hash: c9c7d6c4c
+    name: triton-vllm-inference-server-c9c7d6c4c
+    namespace: triton-vllm-inference-server
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: triton-vllm-inference-server
+      uid: 831074c4-daad-456c-a1f5-371a05cd9b72
+    resourceVersion: "521947"
+    uid: 4c0cd272-93ff-412f-832a-77ea41db82a6
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: triton-vllm-inference-server
+        pod-template-hash: c9c7d6c4c
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftWebConsole
+        creationTimestamp: null
+        labels:
+          app: triton-vllm-inference-server
+          deployment: triton-vllm-inference-server
+          pod-template-hash: c9c7d6c4c
+      spec:
+        containers:
+        - image: image-registry.openshift-image-registry.svc:5000/triton-vllm-inference-server/triton-vllm-inference-server@sha256:a7a82f451ee052f8e1e9fc0b770c54c9efa12b5ae723447922ef8e358e54fd22
+          imagePullPolicy: Always
+          name: triton-vllm-inference-server
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          - containerPort: 8001
+            protocol: TCP
+          - containerPort: 8002
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/models
+            name: model-cache
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: model-cache
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/image.dockerRepositoryCheck: "2024-06-24T22:49:54Z"
+    creationTimestamp: "2024-06-24T22:49:54Z"
+    generation: 2
+    labels:
+      app: triton-vllm-inference-server
+      app.kubernetes.io/component: triton-vllm-inference-server
+      app.kubernetes.io/instance: triton-vllm-inference-server
+      app.kubernetes.io/name: triton-vllm-inference-server
+      app.kubernetes.io/part-of: triton-vllm-inference-server-app
+    name: triton-vllm-inference-server
+    namespace: triton-vllm-inference-server
+    resourceVersion: "91824"
+    uid: 70147e72-9f21-43ce-ae87-14aa1912402f
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.io/imported-from: quay.io/carl_mes/triton-vllm-inference-server:latest
+      from:
+        kind: DockerImage
+        name: quay.io/carl_mes/triton-vllm-inference-server:latest
+      generation: 2
+      importPolicy:
+        importMode: Legacy
+      name: latest
+      referencePolicy:
+        type: Local
+  status:
+    dockerImageRepository: image-registry.openshift-image-registry.svc:5000/triton-vllm-inference-server/triton-vllm-inference-server
+    tags:
+    - items:
+      - created: "2024-06-24T22:49:54Z"
+        dockerImageReference: quay.io/carl_mes/triton-vllm-inference-server@sha256:a7a82f451ee052f8e1e9fc0b770c54c9efa12b5ae723447922ef8e358e54fd22
+        generation: 2
+        image: sha256:a7a82f451ee052f8e1e9fc0b770c54c9efa12b5ae723447922ef8e358e54fd22
+      tag: latest
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    creationTimestamp: "2024-06-24T22:49:54Z"
+    labels:
+      app: triton-vllm-inference-server
+      app.kubernetes.io/component: triton-vllm-inference-server
+      app.kubernetes.io/instance: triton-vllm-inference-server
+      app.kubernetes.io/name: triton-vllm-inference-server
+      app.kubernetes.io/part-of: triton-vllm-inference-server-app
+      app.openshift.io/runtime-version: latest
+    name: triton-vllm-inference-server
+    namespace: triton-vllm-inference-server
+    resourceVersion: "91844"
+    uid: 1e1e372f-3af4-41c6-add3-1dff26ae835f
+  spec:
+    host: triton-rest-api
+    port:
+      targetPort: 8000-tcp
+    tls:
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
+    to:
+      kind: Service
+      name: triton-vllm-inference-server
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+    - conditions:
+      - lastTransitionTime: "2024-06-24T22:49:54Z"
+        status: "True"
+        type: Admitted
+      host: triton-rest-api
+      routerCanonicalHostname: router-default.apps.cluster-72j78.72j78.sandbox61.opentlc.com
+      routerName: default
+      wildcardPolicy: None
+kind: List
+metadata:
+  resourceVersion: ""
