@@ -5,16 +5,9 @@ resources:
   - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/demos/nvidia-gpu-autoscale?ref=v0.04
   - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/bootstrap/install-web-terminal?ref=v0.04
 
-  # ODF Machine Set
-  - aws-odf-machineset
-
-  # Local Storage
-  # - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/local-storage/instance/overlays/default
-  # - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/local-storage/operator/overlays/stable
-
   # ODF
-  # - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/operator/overlays/stable-4.14
-  # - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/instance/overlays/local-storage
+  - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/operator/overlays/stable-4.14
+  - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/instance/overlays/aws
   # - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/openshift-data-foundation/config-helpers/node-labeler/overlays/default
 
   # AWS EFS CSI Driver
@@ -23,6 +16,9 @@ resources:
 
   # Console application links
   - link-github.yaml
+
+  # ODF Machine Set
+  - odf-machineset
 
 patches:
   - target:
@@ -47,10 +43,4 @@ patches:
   - target:
       kind: StorageCluster
       name: ocs-storagecluster
-    patch: |-
-      - op: replace
-        path: /spec/storageDeviceSets/0/dataPVCTemplate/spec/resources/requests/storage
-        value: '1'
-      - op: replace
-        path: /spec/storageDeviceSets/0/replica
-        value: 4
+    path: storagecluster.yaml

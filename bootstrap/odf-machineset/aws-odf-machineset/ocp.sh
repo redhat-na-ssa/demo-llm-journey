@@ -58,6 +58,10 @@ spec:
   replicas: 3
   template:
     spec:
+      taints:
+        - key: node.ocs.openshift.io/storage
+          value: 'true'
+          effect: NoSchedule
       metadata:
         labels:
           cluster.ocs.openshift.io/openshift-storage: ''
@@ -72,14 +76,14 @@ spec:
                   arn: ''
                 volumeSize: 100
                 volumeType: gp3
-            - deviceName: /dev/xvdb
-              ebs:
-                encrypted: true
-                iops: 0
-                kmsKey:
-                  arn: ''
-                volumeSize: 1000
-                volumeType: gp3
+            # - deviceName: /dev/xvdb
+            #   ebs:
+            #     encrypted: true
+            #     iops: 0
+            #     kmsKey:
+            #       arn: ''
+            #     volumeSize: 1000
+            #     volumeType: gp3
 YAML
 
   # patch storage
