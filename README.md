@@ -17,3 +17,4 @@ until oc apply -k bootstrap; do : ; done
 This project contains a container wrapper around the NVIDIA Triton Inference Server for serving LLMs:
 
 - https://github.com/carlmes/triton-vllm-inference-server
+- https://github.com/triton-inference-server/vllm_backend
