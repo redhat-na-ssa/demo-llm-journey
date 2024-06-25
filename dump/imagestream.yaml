@@ -1,0 +1,23 @@
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: triton-vllm-inference-server
+    app.kubernetes.io/component: triton-vllm-inference-server
+    app.kubernetes.io/instance: triton-vllm-inference-server
+    app.kubernetes.io/name: triton-vllm-inference-server
+    app.kubernetes.io/part-of: triton-vllm-inference-server-app
+  name: triton-vllm-inference-server
+spec:
+  lookupPolicy:
+    local: true
+  tags:
+  - annotations:
+      openshift.io/imported-from: quay.io/carl_mes/triton-vllm-inference-server:latest
+    from:
+      kind: DockerImage
+      name: quay.io/carl_mes/triton-vllm-inference-server:latest
+    name: latest
+    referencePolicy:
+      type: Local

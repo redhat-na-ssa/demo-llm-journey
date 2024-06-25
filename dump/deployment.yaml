@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: triton-vllm-inference-server
+    app.kubernetes.io/component: triton-vllm-inference-server
+    app.kubernetes.io/instance: triton-vllm-inference-server
+    app.kubernetes.io/name: triton-vllm-inference-server
+    app.kubernetes.io/part-of: triton-vllm-inference-server-app
+    app.openshift.io/runtime-namespace: triton-vllm-inference-server
+  name: triton-vllm-inference-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: triton-vllm-inference-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: triton-vllm-inference-server
+        deployment: triton-vllm-inference-server
+    spec:
+      containers:
+      - image: image-registry.openshift-image-registry.svc:5000/triton-vllm-inference-server/triton-vllm-inference-server@sha256:a7a82f451ee052f8e1e9fc0b770c54c9efa12b5ae723447922ef8e358e54fd22
+        imagePullPolicy: Always
+        name: triton-vllm-inference-server
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        - containerPort: 8001
+          protocol: TCP
+        - containerPort: 8002
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        - mountPath: /opt/app-root/models
+          name: model-cache
+      restartPolicy: Always
+      volumes:
+      - name: model-cache
+        persistentVolumeClaim:
+          claimName: model-cache

@@ -1,0 +1,24 @@
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: triton-vllm-inference-server
+    app.kubernetes.io/component: triton-vllm-inference-server
+    app.kubernetes.io/instance: triton-vllm-inference-server
+    app.kubernetes.io/name: triton-vllm-inference-server
+    app.kubernetes.io/part-of: triton-vllm-inference-server-app
+    app.openshift.io/runtime-version: latest
+  name: triton-vllm-inference-server
+spec:
+  # host: triton-rest-api
+  port:
+    targetPort: 8000-tcp
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: triton-vllm-inference-server
+    weight: 100
+  wildcardPolicy: None
