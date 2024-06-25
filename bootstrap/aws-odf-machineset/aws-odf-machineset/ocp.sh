@@ -61,6 +61,7 @@ spec:
       metadata:
         labels:
           cluster.ocs.openshift.io/openshift-storage: ''
+          node-role.kubernetes.io/infra: ''
       providerSpec:
         value:
           blockDevices:
