@@ -1,0 +1,26 @@
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: triton-vllm
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: triton-vllm-inference-server:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    contextDir: /
+    git:
+      ref: main
+      uri: https://github.com/carlmes/triton-vllm-inference-server
+    type: Git
+  strategy:
+    dockerStrategy:
+      dockerfilePath: Containerfile
+      from:
+        kind: ImageStreamTag
+        name: tritonserver:latest
+    type: Docker
