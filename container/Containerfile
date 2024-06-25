@@ -2,6 +2,8 @@ FROM nvcr.io/nvidia/tritonserver:24.05-vllm-python-py3
 
 # VOLUME [ "/opt/app-root/models", "/opt/app-root/model_repository" ]
 
+COPY entrypoint.sh /usr/local/bin
+
 USER 1001
 
 # 8000: REST Interface
@@ -10,3 +12,4 @@ USER 1001
 # EXPOSE 8000 8001 8002
 
 # ENTRYPOINT /opt/nvidia/nvidia_entrypoint.sh
+CMD [ "/usr/local/bin/entrypoint.sh" ]
