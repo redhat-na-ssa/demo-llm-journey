@@ -6,19 +6,14 @@ resources:
   - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/bootstrap/install-web-terminal?ref=v0.04
 
   # ODF
-  - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/operator/overlays/stable-4.14
-  - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/instance/overlays/aws
-  # - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/openshift-data-foundation/config-helpers/node-labeler/overlays/default
-
-  # AWS EFS CSI Driver
-  # - aws-efs-csi-driver-operator/instance/overlays/default
-  # - aws-efs-csi-driver-operator/operator/overlays/stable
-
-  # Console application links
-  - link-github.yaml
+  - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/operator/overlays/stable-4.14?ref=v0.04
+  - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/instance/overlays/aws?ref=v0.04
 
   # ODF Machine Set
   - odf-machineset
+
+  # Console application links
+  - link-github.yaml
 
 patches:
   - target:
