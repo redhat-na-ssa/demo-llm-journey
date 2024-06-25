@@ -56,7 +56,7 @@ spec:
           protocol: TCP
         resources: {}
         volumeMounts:
-        - mountPath: /opt/app-root/models
+        - mountPath: /data
           name: model-cache
       restartPolicy: Always
       volumes:

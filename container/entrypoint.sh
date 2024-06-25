@@ -1,6 +1,9 @@
 #!/bin/sh
 # set -e
 
+MODEL_REPOSITORY="${MODEL_REPOSITORY:-/data/model_repository}"
+
+
 usage(){
   "${STI_SCRIPTS_PATH}/usage"
 }
@@ -26,17 +29,33 @@ run_default(){
 }
 
 run_init(){
-  # want to do something custom before you start
-  echo "
-  These messages brought to you by bash.
-  
-  Reticulating splines...
-  Fetching dataset during runtime...
-  "
+  if [ ! -d "${MODEL_REPOSITORY}" ]; then
+    echo "Creating a new empty model repository at: ${MODEL_REPOSITORY}"
+    mkdir -p "${MODEL_REPOSITORY}"
+  fi
+
+}
+
+run_triton(){
+  #export TRANSFORMERS_CACHE=/models/
+  #export TRITON_CLOUD_CREDENTIAL_PATH="/opt/cloud_credential.json"
+
+  # https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/model_repository.html?highlight=aws_access_key_id#s3
+  # export TRITON_AWS_MOUNT_DIRECTORY=...
+
+  which tritonserver || return
+  [ -d "${MODEL_REPOSITORY}" ] || return
+
+  # ENTRYPOINT ["/opt/nvidia/nvidia_entrypoint.sh", "tritonserver", "--model-repository", "/triton-inference-server/docs/examples/model_repository"]
+  tritonserver \
+    --model-repository=${MODEL_REPOSITORY} \
+    --model-control-mode=poll \
+    --repository-poll-secs=60
 }
 
 usage
 
 run_init
+run_triton
 run_default
 run_sleep
