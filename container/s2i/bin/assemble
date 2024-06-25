@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Moving source to $HOME/src/ ..."
+mv -v /tmp/src/* "$HOME/src/"
+
+# set permissions for any installed artifacts
+fix-permissions /opt/app-root -P
+
