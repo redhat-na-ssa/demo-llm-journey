@@ -15,6 +15,10 @@ resources:
   # Console application links
   - link-github.yaml
 
+  # deployment
+  - ../build
+  - ../deployment
+
 patches:
   - target:
       kind: ConsoleNotification
