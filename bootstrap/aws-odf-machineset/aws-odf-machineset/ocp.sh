@@ -25,10 +25,11 @@ ocp_aws_clone_worker_machineset(){
   if [ -n "${MACHINE_SET_NAME}" ]; then
     echo "Exists: machineset - ${MACHINE_SET_NAME}"
   else
-    echo "Creating: machineset - ${MACHINE_SET_NAME}"
+    echo "Creating: machineset - ${SHORT_NAME}"
     oc -n openshift-machine-api \
       get "${MACHINE_SET_WORKER}" -o yaml | \
         sed '/machine/ s/-worker/-'"${INSTANCE_TYPE}"'/g
+          /^  name:/ s/cluster-.*/'"${SHORT_NAME}"'/g
           /name/ s/-worker/-'"${SHORT_NAME}"'/g
           s/instanceType.*/instanceType: '"${INSTANCE_TYPE}"'/
           s/replicas.*/replicas: 0/' | \
@@ -43,7 +44,7 @@ ocp_aws_clone_worker_machineset(){
 
 ocp_aws_create_odf_machineset(){
   INSTANCE_TYPE=${1:-m6a.2xlarge}
-  SHORT_NAME=${2:-odf}
+  SHORT_NAME=${2:-odf-infra}
 
   ocp_aws_clone_worker_machineset "${INSTANCE_TYPE}" "${SHORT_NAME}"
 
@@ -53,6 +54,7 @@ ocp_aws_create_odf_machineset(){
 
 cat << YAML > /tmp/patch.yaml
 spec:
+  replicas: 3
   template:
     spec:
       providerSpec:
@@ -80,4 +82,8 @@ YAML
     patch "${MACHINE_SET_NAME}" \
     --type=merge --patch "$(cat /tmp/patch.yaml)"
 
+  # patch labels
+  oc -n openshift-machine-api \
+    patch "${MACHINE_SET_NAME}" \
+    --type=merge --patch '{"spec":{"template":{"spec":{"metadata":{"labels":{"cluster.ocs.openshift.io/openshift-storage":""}}}}}}'
 }
