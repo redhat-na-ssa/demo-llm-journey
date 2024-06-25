@@ -1,16 +1,7 @@
-apiVersion: kustomize.config.k8s.io/v1alpha1
-kind: Component
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 
-resources:
-  - job.yaml
+namespace: openshift-machine-api
 
-generatorOptions:
-  disableNameSuffixHash: true
-
-configMapGenerator:
-  - name: job-aws-gpu-machineset
-    namespace: nvidia-gpu-operator
-    files:
-      - job.sh
-      - ocp.sh
-      # - https://raw.githubusercontent.com/redhat-na-ssa/demo-ai-gitops-catalog/main/scripts/library/ocp.sh
+components:
+  - aws-odf-machineset

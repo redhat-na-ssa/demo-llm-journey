@@ -1,6 +1,7 @@
 #!/bin/bash
-
 # shellcheck disable=SC1091
+set -x
+
 . /scripts/ocp.sh
 
 INSTANCE_TYPE=${INSTANCE_TYPE:-m6a.2xlarge}

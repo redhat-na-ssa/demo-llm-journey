@@ -5,6 +5,9 @@ resources:
   - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/demos/nvidia-gpu-autoscale?ref=v0.04
   - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/bootstrap/install-web-terminal?ref=v0.04
 
+  # ODF Machine Set
+  - aws-odf-machineset
+
   # Local Storage
   # - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/local-storage/instance/overlays/default
   # - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/local-storage/operator/overlays/stable
@@ -15,8 +18,8 @@ resources:
   # - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/openshift-data-foundation/config-helpers/node-labeler/overlays/default
 
   # AWS EFS CSI Driver
-  - aws-efs-csi-driver-operator/instance/overlays/default
-  - aws-efs-csi-driver-operator/operator/overlays/stable
+  # - aws-efs-csi-driver-operator/instance/overlays/default
+  # - aws-efs-csi-driver-operator/operator/overlays/stable
 
   # Console application links
   - link-github.yaml

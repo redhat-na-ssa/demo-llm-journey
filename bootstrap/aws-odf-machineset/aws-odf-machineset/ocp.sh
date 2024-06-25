@@ -22,7 +22,7 @@ ocp_aws_clone_worker_machineset(){
   MACHINE_SET_WORKER=$(oc -n openshift-machine-api get machinesets.machine.openshift.io -o name | grep worker | head -n1)
 
   # check for an existing instance machine set
-  if oc -n openshift-machine-api get machinesets.machine.openshift.io -o name | grep -q "${MACHINE_SET_NAME}"; then
+  if [ -n "${MACHINE_SET_NAME}" ]; then
     echo "Exists: machineset - ${MACHINE_SET_NAME}"
   else
     echo "Creating: machineset - ${MACHINE_SET_NAME}"
@@ -45,7 +45,7 @@ ocp_aws_create_odf_machineset(){
   INSTANCE_TYPE=${1:-m6a.2xlarge}
   SHORT_NAME=${2:-odf}
 
-  ocp_aws_clone_machineset "${INSTANCE_TYPE}" "${SHORT_NAME}"
+  ocp_aws_clone_worker_machineset "${INSTANCE_TYPE}" "${SHORT_NAME}"
 
   MACHINE_SET_NAME=$(oc -n openshift-machine-api get machinesets.machine.openshift.io -o name | grep "${SHORT_NAME}" | head -n1)
 
