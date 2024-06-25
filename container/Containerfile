@@ -1,4 +1,6 @@
-FROM nvcr.io/nvidia/tritonserver:24.05-vllm-python-py3
+ARG IMAGE_NAME=nvcr.io/nvidia/tritonserver:24.05-vllm-python-py3
+# hadolint ignore=DL3006
+FROM ${IMAGE_NAME}
 
 ENV STI_SCRIPTS_PATH=/usr/libexec/s2i
 COPY s2i/bin/ ${STI_SCRIPTS_PATH}
@@ -39,4 +41,5 @@ ENV PATH=${APP_ROOT}/bin:${PATH} \
 # EXPOSE 8000 8001 8002
 
 # ENTRYPOINT /opt/nvidia/nvidia_entrypoint.sh
-CMD [ "${STI_SCRIPTS_PATH}/run" ]
+# hadolint ignore=DL3025
+CMD "${STI_SCRIPTS_PATH}/run"

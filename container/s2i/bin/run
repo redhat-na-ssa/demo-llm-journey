@@ -32,7 +32,6 @@ run_init(){
     echo "Creating a new empty model repository at: ${MODEL_REPOSITORY}"
     mkdir -p "${MODEL_REPOSITORY}"
   fi
-
 }
 
 run_triton(){
