@@ -31,8 +31,17 @@ spec:
         name: triton-vllm
         readinessProbe:
           httpGet:
-            path: /
-            port: 8080
+            path: /v2/health/ready
+            port: 8000
+            scheme: HTTP
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /v2/health/live
+            port: 8000
             scheme: HTTP
           timeoutSeconds: 1
           periodSeconds: 10
