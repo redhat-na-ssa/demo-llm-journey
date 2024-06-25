@@ -6,8 +6,8 @@ resources:
   - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/bootstrap/install-web-terminal?ref=v0.04
 
   # ODF
-  - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/operator/overlays/stable-4.14?ref=v0.04
-  - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/odf-operator/instance/overlays/aws?ref=v0.04
+  - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/components/operators/odf-operator/operator/overlays/stable-4.14?ref=v0.04
+  - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/components/operators/odf-operator/instance/overlays/aws?ref=v0.04
 
   # ODF Machine Set
   - odf-machineset
