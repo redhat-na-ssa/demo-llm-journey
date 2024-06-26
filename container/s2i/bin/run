@@ -1,7 +1,7 @@
 #!/bin/sh
 # set -e
 
-MODEL_REPOSITORY="${MODEL_REPOSITORY:-/data/model_repository}"
+MODEL_REPOSITORY="${MODEL_REPOSITORY:-/opt/app-root/models}"
 
 usage(){
   "${STI_SCRIPTS_PATH}/usage"
@@ -28,9 +28,9 @@ run_default(){
 }
 
 run_init(){
-  if [ ! -d "${MODEL_REPOSITORY}" ]; then
+  if [ ! -d "${MODEL_REPOSITORY}/model_repository" ]; then
     echo "Creating a new empty model repository at: ${MODEL_REPOSITORY}"
-    mkdir -p "${MODEL_REPOSITORY}"
+    mkdir -p "${MODEL_REPOSITORY}/model_repository"
   fi
 }
 

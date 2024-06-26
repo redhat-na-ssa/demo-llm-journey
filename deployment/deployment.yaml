@@ -59,10 +59,11 @@ spec:
           protocol: TCP
         resources: {}
         volumeMounts:
-        - mountPath: /data
-          name: model-cache
+        - mountPath: /opt/app-root/models
+          name: inference-server
+          subPath: models
       restartPolicy: Always
       volumes:
-      - name: model-cache
+      - name: inference-server
         persistentVolumeClaim:
-          claimName: model-cache
+          claimName: inference-server
