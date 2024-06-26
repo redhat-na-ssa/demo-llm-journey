@@ -28,7 +28,7 @@ VOLUME [ "/opt/app-root/src" ]
 USER 1001
 
 ENV PATH=${APP_ROOT}/bin:${PATH} \
-    HOME=${APP_ROOT}/src \
+    HOME=${APP_ROOT}/src
 
 WORKDIR ${HOME}
 
