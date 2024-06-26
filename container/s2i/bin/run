@@ -34,8 +34,12 @@ run_init(){
   
     git clone --depth=1 https://github.com/triton-inference-server/server.git /tmp/repo
 
-    mv /tmp/repo/docs/examples/* .
-    bash fetch_models.sh
+    mv /tmp/repo/docs/examples/models_repository/* "${MODEL_REPOSITORY}/"
+
+    cd /tmp
+    bash /tmp/repo/docs/examples/fetch_models.sh
+    mv models_repository/* "${MODEL_REPOSITORY}/"
+    cd "${HOME}"
   fi
 }
 
