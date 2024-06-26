@@ -1,6 +1,6 @@
-# demo-llm-journey
+# Triton w/ vllm on OpenShift
 
-Demo LLM things
+This repo helps to quickly configure Titon w/ vllm
 
 ## Quick Start
 

@@ -12,4 +12,17 @@ create_trition_examples(){
   )
 }
 
+download_model_from_huggingface(){
+  which huggingface-cli || return
+  [ -n "${HUGGING_FACE_HUB_TOKEN}" ] || return
+  [ -n "${HUGGING_FACE_MODEL}" ] || return
+
+  huggingface-cli env
+  huggingface-cli download \
+    --token "${HUGGING_FACE_HUB_TOKEN}" \
+    --repo-type model \
+    --local-dir "${MODEL_REPOSITORY}/" \
+    "${HUGGING_FACE_MODEL}"
+}
+
 echo "Init Complete"

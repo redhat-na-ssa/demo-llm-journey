@@ -28,12 +28,27 @@ run_default(){
 }
 
 run_init(){
-  if [ ! -d "${MODEL_REPOSITORY}" ]; then
-    echo "Creating model repository at: ${MODEL_REPOSITORY}"
+  echo "
+    MODEL_REPOSITORY=${MODEL_REPOSITORY}
+  "
+
+  if [ -d "${MODEL_REPOSITORY}" ]; then
+    echo "path exists: ${MODEL_REPOSITORY}"
+  else
+    echo "creating model repository at: ${MODEL_REPOSITORY}"
     mkdir -p "${MODEL_REPOSITORY}"
   fi
+}
 
-  download_model_from_huggingface
+run_scripts(){
+  [ -d /scripts ] || return
+  echo "found: /scripts"
+
+  for script in /scripts/*.sh
+  do
+    echo "running: $script"
+    "$script"
+  done
 }
 
 run_triton(){
@@ -44,9 +59,6 @@ run_triton(){
   # export TRITON_AWS_MOUNT_DIRECTORY=...
 
   which tritonserver || return
-  [ -d "${MODEL_REPOSITORY}" ] || return
-
-  echo "MODEL_REPOSITORY=${MODEL_REPOSITORY}"
 
   # ENTRYPOINT ["/opt/nvidia/nvidia_entrypoint.sh", "tritonserver", "--model-repository", "/triton-inference-server/docs/examples/model_repository"]
   tritonserver \
@@ -55,22 +67,11 @@ run_triton(){
     --repository-poll-secs=60
 }
 
-download_model_from_huggingface(){
-  which huggingface-cli || return
-  [ -n "${HUGGING_FACE_HUB_TOKEN}" ] || return
-  [ -n "${HUGGING_FACE_MODEL}" ] || return
-
-  huggingface-cli env
-  huggingface-cli download \
-    --token "${HUGGING_FACE_HUB_TOKEN}" \
-    --repo-type model \
-    --local-dir "${MODEL_REPOSITORY}/" \
-    "${HUGGING_FACE_MODEL}"
-}
 
 usage
 
 run_init
+run_scripts
 run_triton
 run_default "$@"
 run_sleep
