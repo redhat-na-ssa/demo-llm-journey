@@ -28,6 +28,9 @@ spec:
       initContainers:
         - name: init
           image: registry.redhat.io/openshift4/ose-cli
+          envFrom:
+          - secretRef:
+              name: hugging-face-secret
           command:
             - /bin/bash
             - -c
