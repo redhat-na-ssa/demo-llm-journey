@@ -29,17 +29,8 @@ run_default(){
 
 run_init(){
   if [ ! -d "${MODEL_REPOSITORY}" ]; then
-    echo "Creating a new empty model repository at: ${MODEL_REPOSITORY}"
+    echo "Creating model repository at: ${MODEL_REPOSITORY}"
     mkdir -p "${MODEL_REPOSITORY}"
-  
-    git clone --depth=1 https://github.com/triton-inference-server/server.git /tmp/repo
-
-    mv /tmp/repo/docs/examples/models_repository/* "${MODEL_REPOSITORY}/"
-
-    cd /tmp
-    bash /tmp/repo/docs/examples/fetch_models.sh
-    mv models_repository/* "${MODEL_REPOSITORY}/"
-    cd "${HOME}"
   fi
 }
 
@@ -60,6 +51,17 @@ run_triton(){
     --model-repository="${MODEL_REPOSITORY}" \
     --model-control-mode=poll \
     --repository-poll-secs=60
+}
+
+create_trition_examples(){    
+  git clone --depth=1 https://github.com/triton-inference-server/server.git /tmp/repo
+
+  mv /tmp/repo/docs/examples/models_repository/* "${MODEL_REPOSITORY}/"
+
+  (cd /tmp && \
+    bash /tmp/repo/docs/examples/fetch_models.sh && \
+    mv models_repository/* "${MODEL_REPOSITORY}/"
+  )
 }
 
 usage
