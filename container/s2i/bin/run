@@ -32,6 +32,8 @@ run_init(){
     echo "Creating model repository at: ${MODEL_REPOSITORY}"
     mkdir -p "${MODEL_REPOSITORY}"
   fi
+
+  download_model_from_huggingface
 }
 
 run_triton(){
@@ -51,6 +53,19 @@ run_triton(){
     --model-repository="${MODEL_REPOSITORY}" \
     --model-control-mode=poll \
     --repository-poll-secs=60
+}
+
+download_model_from_huggingface(){
+  which huggingface-cli || return
+  [ -n "${HUGGING_FACE_HUB_TOKEN}" ] || return
+  [ -n "${HUGGING_FACE_MODEL}" ] || return
+
+  huggingface-cli env
+  huggingface-cli download \
+    --token "${HUGGING_FACE_HUB_TOKEN}" \
+    --repo-type model \
+    --local-dir "${MODEL_REPOSITORY}/" \
+    "${HUGGING_FACE_MODEL}"
 }
 
 usage
