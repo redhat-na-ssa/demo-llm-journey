@@ -79,7 +79,7 @@ spec:
       - name: scripts
         configMap:
           name: triton-scripts
-          defaultMode: 0755
+          defaultMode: 0555
       - name: inference-server
         persistentVolumeClaim:
           claimName: inference-server
