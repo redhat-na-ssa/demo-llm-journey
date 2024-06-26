@@ -1,0 +1,29 @@
+#!/bin/bash
+
+which lsb_release >/dev/null 2>&1 && lsb_release -ircd
+
+DISTRO=$(cat /etc/*-release | grep ^ID= | grep -Po '".*?"' | tr -d '"')
+[[ $DISTRO =~ rhel* ]] || DISTRO="non RHEL"
+
+cat <<EOF
+
+This is a S2I triton server image; ${DISTRO} base image:
+
+There are multiple ways to use this image, see documentation at:
+https://github.com/codekow/s2i-patch/tree/main/s2i-triton
+
+The default directory for installing code sources is:
+${APP_ROOT}/src
+
+WORKDIR=$(pwd)
+HOME=${HOME}
+
+To learn more about S2I visit: 
+- https://github.com/openshift/source-to-image
+- https://github.com/sclorg/container-common-scripts
+
+To learn more about triton inference server visit:
+- https://github.com/triton-inference-server/server
+- https://github.com/triton-inference-server/vllm_backend
+
+EOF

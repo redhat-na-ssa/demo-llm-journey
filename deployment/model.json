@@ -1,0 +1,6 @@
+
+{
+    "model": "/opt/app-root/models/model_repository/vllm_model/Llama-2-7b-hf",
+    "disable_log_requests": "true",
+    "gpu_memory_utilization": 1
+}

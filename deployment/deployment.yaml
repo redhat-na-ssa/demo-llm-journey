@@ -1,0 +1,83 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"triton-vllm-inference-server:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"inference-server\")].image","pause":"true"}]'
+  labels:
+    app: triton-vllm-inference-server
+    app.kubernetes.io/component: triton-vllm-inference-server
+    app.kubernetes.io/instance: triton-vllm-inference-server
+    app.kubernetes.io/name: triton-vllm-inference-server
+    app.kubernetes.io/part-of: triton-vllm-inference-server-app
+    app.openshift.io/runtime-namespace: triton-vllm-inference-server
+  name: triton-vllm-inference-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: triton-vllm-inference-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: triton-vllm-inference-server
+        deployment: triton-vllm-inference-server
+    spec:
+      initContainers:
+        - name: init
+          image: registry.redhat.io/openshift4/ose-cli
+          command:
+            - /bin/bash
+            - -c
+            - /scripts/init.sh
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+      containers:
+      - image: triton-vllm-inference-server:latest
+        imagePullPolicy: Always
+        name: inference-server
+        readinessProbe:
+          httpGet:
+            path: /v2/health/ready
+            port: 8000
+            scheme: HTTP
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /v2/health/live
+            port: 8000
+            scheme: HTTP
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        - containerPort: 8001
+          name: grpc
+          protocol: TCP
+        - containerPort: 8002
+          name: metrics
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        - mountPath: /opt/app-root/models
+          name: inference-server
+          subPath: models
+      restartPolicy: Always
+      volumes:
+      - name: scripts
+        configMap:
+          name: triton-scripts
+          defaultMode: 0755
+      - name: inference-server
+        persistentVolumeClaim:
+          claimName: inference-server

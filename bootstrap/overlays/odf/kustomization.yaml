@@ -1,0 +1,42 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+  # ODF
+  - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/components/operators/odf-operator/operator/overlays/stable-4.14?ref=v0.04
+  - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/components/operators/odf-operator/instance/overlays/aws?ref=v0.04
+
+  # ODF Machine Set
+  - odf-machineset
+
+patches:
+  - target:
+      kind: ConsoleNotification
+      name: banner-demo
+    patch: |-
+      - op: replace
+        path: /spec/text
+        value: 'DEMO: LLM Journey w/ Open Data Foundation'
+  - target:
+      kind: Deployment
+      name: triton-vllm-inference-server
+    patch: |-
+      - op: replace
+        path: /spec/strategy/type
+        value: RollingUpdate
+  - target:
+      kind: PersistentVolumeClaim
+      name: inference-server
+    patch: |-
+      - op: replace
+        path: spec/accessModes
+        value: ReadWriteMany
+      - op: add
+        path: spec/storageClassName
+        value: ocs-storagecluster-cephfs
+  - target:
+      kind: StorageCluster
+      name: ocs-storagecluster
+    path: storagecluster.yaml

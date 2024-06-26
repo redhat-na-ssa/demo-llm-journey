@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Moving source to ${APP_ROOT}/src/ ..."
+mv -v /tmp/src/* "${APP_ROOT}/src/"
+
+# set permissions for any installed artifacts
+fix-permissions /opt/app-root -P
+

@@ -1,0 +1,29 @@
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: triton-vllm
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: triton-vllm-inference-server:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    contextDir: /container
+    git:
+      ref: deployment
+      uri: https://github.com/redhat-na-ssa/demo-llm-journey
+    type: Git
+  strategy:
+    dockerStrategy:
+      dockerfilePath: Containerfile
+      from:
+        kind: ImageStreamTag
+        name: tritonserver:latest
+    type: Docker
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange

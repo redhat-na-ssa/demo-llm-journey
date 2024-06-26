@@ -1,0 +1,35 @@
+ARG IMAGE_NAME=nvcr.io/nvidia/tritonserver:24.05-vllm-python-py3
+# hadolint ignore=DL3006
+FROM ${IMAGE_NAME}
+
+ENV STI_SCRIPTS_PATH=/usr/libexec/s2i
+COPY s2i/bin/ ${STI_SCRIPTS_PATH}
+COPY usr/ /usr/
+
+ENV APP_ROOT=/opt/app-root
+
+RUN chmod -R u+x ${STI_SCRIPTS_PATH} && \
+    chgrp -R 0 ${STI_SCRIPTS_PATH} && \
+    chmod -R g=u ${STI_SCRIPTS_PATH} && \
+    mkdir -p ${APP_ROOT}/bin ${APP_ROOT}/src && \
+    chmod -R u+x ${APP_ROOT}/bin && \
+    chgrp -R 0 ${APP_ROOT} && \
+    chmod -R g=u ${APP_ROOT}
+
+VOLUME [ "/opt/app-root/src" ]
+
+USER 1001
+
+ENV PATH=${APP_ROOT}/bin:${PATH} \
+    HOME=${APP_ROOT}/src
+
+WORKDIR ${HOME}
+
+# 8000: REST Interface
+# 8001: gRPC Interface
+# 8002: Model performance monitoring
+# EXPOSE 8000 8001 8002
+
+# ENTRYPOINT /opt/nvidia/nvidia_entrypoint.sh
+# hadolint ignore=DL3025
+CMD "${STI_SCRIPTS_PATH}/run"

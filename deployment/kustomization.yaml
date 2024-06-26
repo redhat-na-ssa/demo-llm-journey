@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: llm-journey
+
+resources:
+  - deployment.yaml
+  - imagestream.yaml
+  - namespace.yaml
+  - pvc.yaml
+  - route.yaml
+  - service.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: triton-vllm-inference-server
+    files:
+      - config.pbtxt
+      - model.json
+  - name: triton-scripts
+    files:
+      - init.sh
