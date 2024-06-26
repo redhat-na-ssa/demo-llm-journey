@@ -5,9 +5,8 @@ metadata:
   name: inference-server
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: 200Gi
-  storageClassName: ocs-storagecluster-cephfs
   volumeMode: Filesystem
