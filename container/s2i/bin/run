@@ -1,0 +1,76 @@
+#!/bin/sh
+# set -e
+
+MODEL_REPOSITORY="${MODEL_REPOSITORY:-/opt/app-root/models/model_repository}"
+
+usage(){
+  "${STI_SCRIPTS_PATH}/usage"
+}
+
+# fallback with sleep to debug your code
+# oc rsh / podman exec -it .. /bin/sh
+run_sleep(){
+  echo "Ponder the universe with infinate sleep..."
+  sleep infinity
+}
+
+# run normal s2i scripts
+run_default(){
+  NVIDIA_ENTRYPOINT=/opt/nvidia/nvidia_entrypoint.sh
+
+  [ -e /NGC-DL-CONTAINER-LICENSE ] && cat /NGC-DL-CONTAINER-LICENSE
+
+  if [ -e "${NVIDIA_ENTRYPOINT}" ]; then
+    "${NVIDIA_ENTRYPOINT}" "$@"
+  else
+    exec "$@"
+  fi
+}
+
+run_init(){
+  if [ ! -d "${MODEL_REPOSITORY}" ]; then
+    echo "Creating model repository at: ${MODEL_REPOSITORY}"
+    mkdir -p "${MODEL_REPOSITORY}"
+  fi
+
+  download_model_from_huggingface
+}
+
+run_triton(){
+  #export TRANSFORMERS_CACHE=/models/
+  #export TRITON_CLOUD_CREDENTIAL_PATH="/opt/cloud_credential.json"
+
+  # https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/model_repository.html?highlight=aws_access_key_id#s3
+  # export TRITON_AWS_MOUNT_DIRECTORY=...
+
+  which tritonserver || return
+  [ -d "${MODEL_REPOSITORY}" ] || return
+
+  echo "MODEL_REPOSITORY=${MODEL_REPOSITORY}"
+
+  # ENTRYPOINT ["/opt/nvidia/nvidia_entrypoint.sh", "tritonserver", "--model-repository", "/triton-inference-server/docs/examples/model_repository"]
+  tritonserver \
+    --model-repository="${MODEL_REPOSITORY}" \
+    --model-control-mode=poll \
+    --repository-poll-secs=60
+}
+
+download_model_from_huggingface(){
+  which huggingface-cli || return
+  [ -n "${HUGGING_FACE_HUB_TOKEN}" ] || return
+  [ -n "${HUGGING_FACE_MODEL}" ] || return
+
+  huggingface-cli env
+  huggingface-cli download \
+    --token "${HUGGING_FACE_HUB_TOKEN}" \
+    --repo-type model \
+    --local-dir "${MODEL_REPOSITORY}/" \
+    "${HUGGING_FACE_MODEL}"
+}
+
+usage
+
+run_init
+run_triton
+run_default "$@"
+run_sleep
