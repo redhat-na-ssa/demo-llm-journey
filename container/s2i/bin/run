@@ -40,7 +40,7 @@ run_init(){
   fi
 }
 
-run_custom(){
+run_scripts(){
   [ -d /scripts ] || return
   echo "found: /scripts"
 
@@ -71,7 +71,7 @@ run_triton(){
 usage
 
 run_init
-run_custom
+run_scripts
 run_triton
 run_default "$@"
 run_sleep
