@@ -5,7 +5,11 @@ Demo LLM things
 ## Quick Start
 
 ```sh
-until oc apply -k bootstrap; do : ; done
+# deployment with aws gp2/3
+until oc apply -k bootstrap/overlays/default; do : ; done
+
+# deployment with odf storage
+until oc apply -k bootstrap/overlays/odf; do : ; done
 ```
 
 ## Related Links
