@@ -20,9 +20,12 @@ patches:
         path: /spec/text
         value: 'DEMO: LLM Journey w/ Open Data Foundation'
   - target:
-      kind: StorageCluster
-      name: ocs-storagecluster
-    path: storagecluster.yaml
+      kind: Deployment
+      name: triton-vllm-inference-server
+    patch: |-
+      - op: replace
+        path: /spec/strategy/type
+        value: RollingUpdate
   - target:
       kind: PersistentVolumeClaim
       name: inference-server
@@ -33,3 +36,7 @@ patches:
       - op: add
         path: spec/storageClassName
         value: ocs-storagecluster-cephfs
+  - target:
+      kind: StorageCluster
+      name: ocs-storagecluster
+    path: storagecluster.yaml
