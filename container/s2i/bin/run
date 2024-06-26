@@ -1,7 +1,7 @@
 #!/bin/sh
 # set -e
 
-MODEL_REPOSITORY="${MODEL_REPOSITORY:-/opt/app-root/models}"
+MODEL_REPOSITORY="${MODEL_REPOSITORY:-/opt/app-root/models/model_repository}"
 
 usage(){
   "${STI_SCRIPTS_PATH}/usage"
@@ -28,9 +28,9 @@ run_default(){
 }
 
 run_init(){
-  if [ ! -d "${MODEL_REPOSITORY}/model_repository" ]; then
+  if [ ! -d "${MODEL_REPOSITORY}" ]; then
     echo "Creating a new empty model repository at: ${MODEL_REPOSITORY}"
-    mkdir -p "${MODEL_REPOSITORY}/model_repository"
+    mkdir -p "${MODEL_REPOSITORY}"
   
     EXAMPLE_URL=https://github.com/triton-inference-server/server/raw/main/docs/examples/fetch_models.sh
     curl -sL "${EXAMPLE_URL}" | /bin/bash
