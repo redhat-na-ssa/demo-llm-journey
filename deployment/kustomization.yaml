@@ -19,3 +19,6 @@ configMapGenerator:
     files:
       - config.pbtxt
       - model.json
+  - name: triton-scripts
+    files:
+      - init.sh
