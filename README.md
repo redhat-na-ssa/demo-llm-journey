@@ -10,6 +10,9 @@ until oc apply -k bootstrap/overlays/default; do : ; done
 
 # deployment with odf storage
 until oc apply -k bootstrap/overlays/odf; do : ; done
+
+# add hugging face secret; update with info
+oc apply -n llm-journey -f deployment/hf-secret.yaml
 ```
 
 ## Related Links
