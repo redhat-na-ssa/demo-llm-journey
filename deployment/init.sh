@@ -21,7 +21,7 @@ download_model_from_huggingface(){
   huggingface-cli download \
     --token "${HUGGING_FACE_HUB_TOKEN}" \
     --repo-type model \
-    --local-dir "${MODEL_REPOSITORY}/" \
+    --local-dir "${MODEL_REPOSITORY}/${HUGGING_FACE_MODEL}" \
     "${HUGGING_FACE_MODEL}"
 }
 

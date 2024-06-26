@@ -45,9 +45,10 @@ spec:
             port: 8000
             scheme: HTTP
           timeoutSeconds: 1
-          periodSeconds: 10
+          periodSeconds: 30
           successThreshold: 1
-          failureThreshold: 3
+          failureThreshold: 10
+          initialDelaySeconds: 30
         livenessProbe:
           httpGet:
             path: /v2/health/live

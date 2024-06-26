@@ -1,7 +1,22 @@
 #!/bin/sh
 # set -e
 
-MODEL_REPOSITORY="${MODEL_REPOSITORY:-/opt/app-root/models/model_repository}"
+# Triton specific model_repository, mounted through ConfigMap called 
+# "triton-vllm-inference-server", deployed through deployment/kustomization.yaml
+#└── meta-llama/Llama-2-7b-hf
+#    ├── 1
+#    │   └── model.json
+#    └── config.pbtxt
+
+MODEL_REPOSITORY="${MODEL_REPOSITORY:-/opt/app-root/model_repository}"
+
+# models cache
+#└── meta-llama
+#    ├── Llama-2-7b-hf
+#    │   └── model files downloaded from Hugging Face...
+
+MODEL_CACHE="${MODEL_CACHE:-/opt/app-root/models}"
+
 
 usage(){
   "${STI_SCRIPTS_PATH}/usage"
