@@ -31,6 +31,9 @@ run_init(){
   if [ ! -d "${MODEL_REPOSITORY}/model_repository" ]; then
     echo "Creating a new empty model repository at: ${MODEL_REPOSITORY}"
     mkdir -p "${MODEL_REPOSITORY}/model_repository"
+  
+    EXAMPLE_URL=https://github.com/triton-inference-server/server/raw/main/docs/examples/fetch_models.sh
+    curl -sL "${EXAMPLE_URL}" | /bin/bash
   fi
 }
 
