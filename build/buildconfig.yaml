@@ -14,7 +14,7 @@ spec:
   source:
     contextDir: /container
     git:
-      ref: deployment
+      ref: main
       uri: https://github.com/redhat-na-ssa/demo-llm-journey
     type: Git
   strategy:
