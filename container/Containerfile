@@ -16,7 +16,7 @@ RUN chmod -R u+x ${STI_SCRIPTS_PATH} && \
     chgrp -R 0 ${APP_ROOT} && \
     chmod -R g=u ${APP_ROOT}
 
-VOLUME [ "/opt/app-root/src" ]
+VOLUME [ "/opt/app-root/src", "/opt/app-root/models" ]
 
 USER 1001
 
