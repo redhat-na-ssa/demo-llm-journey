@@ -32,7 +32,7 @@ run_init(){
     echo "Creating a new empty model repository at: ${MODEL_REPOSITORY}"
     mkdir -p "${MODEL_REPOSITORY}"
   
-    git clone https://github.com/triton-inference-server/server.git /tmp/repo
+    git clone --depth=1 https://github.com/triton-inference-server/server.git /tmp/repo
 
     mv /tmp/repo/docs/examples/* .
     bash fetch_models.sh
