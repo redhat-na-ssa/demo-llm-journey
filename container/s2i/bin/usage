@@ -15,8 +15,8 @@ https://github.com/codekow/s2i-patch/tree/main/s2i-triton
 The default directory for installing code sources is:
 ${APP_ROOT}/src
 
-/$WORKDIR=$(pwd)
-/$HOME=${HOME}
+WORKDIR=$(pwd)
+HOME=${HOME}
 
 To learn more about S2I visit: 
 - https://github.com/openshift/source-to-image
