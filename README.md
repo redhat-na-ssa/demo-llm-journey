@@ -15,6 +15,7 @@ until oc apply -k bootstrap/overlays/odf; do : ; done
 ## Related Links
 
 - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog
+- https://github.com/triton-inference-server/tutorials/blob/main/Quick_Deploy/vLLM/README.md
 
 ### Triton Inference Server Wrapper
 
