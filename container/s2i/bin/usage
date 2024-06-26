@@ -22,4 +22,8 @@ To learn more about S2I visit:
 - https://github.com/openshift/source-to-image
 - https://github.com/sclorg/container-common-scripts
 
+To learn more about triton inference server visit:
+- https://github.com/triton-inference-server/server
+- https://github.com/triton-inference-server/vllm_backend
+
 EOF
