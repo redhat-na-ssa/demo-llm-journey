@@ -25,16 +25,16 @@ spec:
         app: triton-vllm-inference-server
         deployment: triton-vllm-inference-server
     spec:
-      initContainers:
-        - name: init
-          image: registry.redhat.io/openshift4/ose-cli
-          command:
-            - /bin/bash
-            - -c
-            - /scripts/init.sh
-          volumeMounts:
-            - name: scripts
-              mountPath: /scripts
+      # initContainers:
+      #   - name: init
+      #     image: registry.redhat.io/openshift4/ose-cli
+      #     command:
+      #       - /bin/bash
+      #       - -c
+      #       - /scripts/init.sh
+      #     volumeMounts:
+      #       - name: scripts
+      #         mountPath: /scripts
       containers:
       - image: triton-vllm-inference-server:latest
         imagePullPolicy: Always
@@ -72,6 +72,8 @@ spec:
         - mountPath: /opt/app-root/models
           name: inference-server
           subPath: models
+        - name: scripts
+          mountPath: /scripts
       restartPolicy: Always
       volumes:
       - name: scripts
