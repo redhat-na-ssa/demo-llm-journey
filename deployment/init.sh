@@ -47,7 +47,8 @@ model_generate_config(){
 }
 
 model_test(){
-  curl -X POST localhost:8000/v2/models/vllm_model/generate -d '{"text_input": "Who is Red Hat", "parameters": {"max_tokens":"100","stream": false, "temperature": 0}}'
+  # see https://github.com/vllm-project/vllm/blob/736ed388492c5c10deb7522637a94c041f163f48/vllm/sampling_params.py#L38
+  curl -X POST localhost:8000/v2/models/vllm_model/generate -d '{"text_input": "Who is Red Hat", "parameters": {"max_tokens": "200", "temperature": 0.1, "stream": false}}'
 }
 
 # vllm_client(){
