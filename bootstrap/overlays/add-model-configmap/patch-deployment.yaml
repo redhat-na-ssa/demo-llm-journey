@@ -1,0 +1,30 @@
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: config-pbtxt
+    mountPath: /opt/app-root/model_repository/meta-llama/Llama-2-7b-hf/config.pbtxt
+    subPath: config.pbtxt
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: config-json
+    mountPath: /opt/app-root/model_repository/meta-llama/Llama-2-7b-hf/1/model.json
+    subPath: model.json
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: config-pbtxt
+    configMap:
+      name: triton-vllm-inference-server
+      items:
+      - key: config.pbtxt
+        path: config.pbtxt
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: config-json
+    configMap:
+      name: triton-vllm-inference-server
+      items:
+      - key: model.json
+        path: model.json

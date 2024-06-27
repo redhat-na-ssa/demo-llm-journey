@@ -43,8 +43,7 @@ run_default(){
 }
 
 run_init(){
-  echo "
-    MODEL_REPOSITORY=${MODEL_REPOSITORY}
+  echo "MODEL_REPOSITORY=${MODEL_REPOSITORY}
   "
 
   if [ -d "${MODEL_REPOSITORY}" ]; then

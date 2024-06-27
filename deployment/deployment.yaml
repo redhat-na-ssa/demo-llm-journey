@@ -45,7 +45,7 @@ spec:
             port: 8000
             scheme: HTTP
           timeoutSeconds: 1
-          periodSeconds: 30
+          periodSeconds: 10
           successThreshold: 1
           failureThreshold: 10
           initialDelaySeconds: 30
@@ -70,11 +70,11 @@ spec:
           protocol: TCP
         resources: {}
         volumeMounts:
+        - name: scripts
+          mountPath: /scripts
         - mountPath: /opt/app-root/models
           name: inference-server
           subPath: models
-        - name: scripts
-          mountPath: /scripts
       restartPolicy: Always
       volumes:
       - name: scripts
