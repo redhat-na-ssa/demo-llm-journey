@@ -1,6 +1,8 @@
 #!/bin/sh
 # set -e
 
+MODEL_REPOSITORY="${MODEL_REPOSITORY:-/opt/app-root/model_repository}"
+
 create_trition_examples(){    
   git clone --depth=1 https://github.com/triton-inference-server/server.git /tmp/repo
 
