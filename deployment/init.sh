@@ -32,33 +32,45 @@ vllm_generate_model_config(){
   MODEL_PATH="${MODEL_REPOSITORY}/vllm_model"
   [ -d "${MODEL_PATH}/1" ] || mkdir -p "${MODEL_PATH}/1"
 
-  print_config_pbtxt > "${MODEL_PATH}/config.pbtxt"
-  print_config_model > "${MODEL_PATH}/1/model.json"
+  cp /scripts/config.pbtxt  "${MODEL_PATH}/"
+  cp /scripts/model.json    "${MODEL_PATH}/1/"
+
+  # print_config_pbtxt_via_curl > "${MODEL_PATH}/config.pbtxt"
+  # print_config_model_via_echo > "${MODEL_PATH}/1/model.json"
 }
 
 vllm_curl(){
   curl -X POST localhost:8000/v2/models/vllm_model/generate -d '{"text_input": "What is Triton Inference Server?", "parameters": {"stream": false, "temperature": 0}}'
 }
 
-print_config_pbtxt(){
-  URL="https://raw.githubusercontent.com/redhat-na-ssa/demo-llm-journey/main/deployment/config.pbtxt"
-  echo "# see ${URL}"
-  curl -sL "${URL}"
+vllm_client(){
+  URL=https://github.com/awslabs/data-on-eks/raw/main/gen-ai/inference/vllm-nvidia-triton-server-gpu/triton-client/prompts.txt
+  curl -sLO "${URL}"
+  URL=https://github.com/awslabs/data-on-eks/raw/main/gen-ai/inference/vllm-nvidia-triton-server-gpu/triton-client/triton-client.py
+  curl -sLO "${URL}"
+
+  python3 triton-client.py
 }
 
-print_config_model(){
-    MODEL_PATH="${MODEL_CACHE}/${HUGGING_FACE_MODEL}"
+# print_config_pbtxt_via_curl(){
+#   URL="https://raw.githubusercontent.com/redhat-na-ssa/demo-llm-journey/main/deployment/config.pbtxt"
+#   echo "# see ${URL}"
+#   curl -sL "${URL}"
+# }
 
-cat << JSON
-{
-  "model": "${MODEL_PATH}",
-  "disable_log_requests": "true",
-  "gpu_memory_utilization": 0.8,
-  "enforce_eager": "true",
-  "max_model_len": 4096
-}
-JSON
-}
+# print_config_model_via_echo(){
+#     MODEL_PATH="${MODEL_CACHE}/${HUGGING_FACE_MODEL}"
+
+# cat << JSON
+# {
+#   "model": "${MODEL_PATH}",
+#   "disable_log_requests": "true",
+#   "gpu_memory_utilization": 0.8,
+#   "enforce_eager": "true",
+#   "max_model_len": 4096
+# }
+# JSON
+# }
 
 [ -d "${MODEL_CACHE}/${HUGGING_FACE_MODEL}" ] && vllm_generate_model_config
 

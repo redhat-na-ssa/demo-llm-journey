@@ -80,7 +80,7 @@ spec:
       volumes:
       - name: scripts
         configMap:
-          name: triton-scripts
+          name: triton-config
           defaultMode: 0555
       - name: inference-server
         persistentVolumeClaim:

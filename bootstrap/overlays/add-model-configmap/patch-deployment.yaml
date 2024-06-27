@@ -15,7 +15,7 @@
   value:
     name: config-pbtxt
     configMap:
-      name: triton-vllm-inference-server
+      name: triton-config
       items:
       - key: config.pbtxt
         path: config.pbtxt
@@ -24,7 +24,7 @@
   value:
     name: config-json
     configMap:
-      name: triton-vllm-inference-server
+      name: triton-config
       items:
       - key: model.json
         path: model.json
