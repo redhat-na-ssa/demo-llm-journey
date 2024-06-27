@@ -15,7 +15,7 @@ create_trition_examples(){
   )
 }
 
-vllm_download_model_from_huggingface(){
+download_model_from_huggingface(){
   which huggingface-cli || return
   [ -n "${HUGGING_FACE_HUB_TOKEN}" ] || return
   [ -n "${HUGGING_FACE_MODEL}" ] || return
@@ -28,7 +28,11 @@ vllm_download_model_from_huggingface(){
     "${HUGGING_FACE_MODEL}"
 }
 
-vllm_generate_model_config(){
+model_download(){
+  download_model_from_huggingface
+}
+
+model_generate_config(){
   MODEL_PATH="${MODEL_REPOSITORY}/vllm_model"
   [ -d "${MODEL_PATH}/1" ] || mkdir -p "${MODEL_PATH}/1"
 
@@ -39,7 +43,7 @@ vllm_generate_model_config(){
   # print_config_model_via_echo > "${MODEL_PATH}/1/model.json"
 }
 
-vllm_curl(){
+model_test(){
   curl -X POST localhost:8000/v2/models/vllm_model/generate -d '{"text_input": "What is Triton Inference Server?", "parameters": {"stream": false, "temperature": 0}}'
 }
 
@@ -72,6 +76,7 @@ vllm_curl(){
 # JSON
 # }
 
-[ -d "${MODEL_CACHE}/${HUGGING_FACE_MODEL}" ] && vllm_generate_model_config
+model_download
+[ -d "${MODEL_CACHE}/${HUGGING_FACE_MODEL}" ] && model_generate_config
 
 echo "Init Complete"
