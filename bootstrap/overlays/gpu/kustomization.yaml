@@ -4,6 +4,9 @@ kind: Kustomization
 resources:
   - ../../base
 
+  # nvidia gpus and autoscaling 
+  - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/demos/nvidia-gpu-autoscale?ref=v0.04
+
 patches:
   - target:
       kind: Deployment
