@@ -1,5 +1,5 @@
 #!/bin/sh
-# set -e
+# set -x
 
 MODEL_REPOSITORY="${MODEL_REPOSITORY:-/opt/app-root/model_repository}"
 MODEL_CACHE="${MODEL_CACHE:-/opt/app-root/models}"
@@ -36,10 +36,11 @@ model_generate_config(){
   MODEL_PATH="${MODEL_CACHE}/${HUGGING_FACE_MODEL}"
   MODEL_CONFIG="${MODEL_REPOSITORY}/vllm_model"
 
-  [ -d "${MODEL_PATH}" ]        || return
-  [ -e /scripts/config.pbtxt ]  || return
-  [ -e /scripts/model.json ]    || return
-  [ -e "${MODEL_CONFIG}/1" ]    && return
+  [ "${MODEL_PATH}" = "${MODEL_CACHE}/" ] && return
+  [ -d "${MODEL_CONFIG}/1" ]              && return
+  [ -d "${MODEL_PATH}" ]                  || return
+  [ -e /scripts/config.pbtxt ]            || return
+  [ -e /scripts/model.json ]              || return
 
   [ -d "${MODEL_CONFIG}/1" ] || mkdir -p "${MODEL_CONFIG}/1"
 
@@ -52,6 +53,7 @@ model_generate_config(){
 }
 
 model_test(){
+  set -x 
   # see https://github.com/vllm-project/vllm/blob/736ed388492c5c10deb7522637a94c041f163f48/vllm/sampling_params.py#L38
   URL=${URL:-localhost:8000/v2/models/vllm_model/generate}
   
@@ -60,6 +62,7 @@ model_test(){
 
   DATA='{"text_input": "'"${INPUT}"'", "parameters": {'"${PARAMS}"'}}'
   curl -s -X POST "${URL}" -d "${DATA}"
+  set +x
 }
 
 # vllm_client(){
