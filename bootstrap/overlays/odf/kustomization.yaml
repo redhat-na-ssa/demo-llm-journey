@@ -19,7 +19,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/text
-        value: 'DEMO: 'DEMO: Triton + vllm + OpenShift Data Foundation'
+        value: 'DEMO: Triton + vllm + OpenShift Data Foundation'
   - target:
       kind: Deployment
       name: triton-vllm-inference-server

@@ -14,7 +14,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/text
-        value: 'DEMO: Triton + vllm
+        value: 'DEMO: Triton + vllm'
   - target:
       kind: Job
       name: job-aws-gpu-machineset
