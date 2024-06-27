@@ -33,14 +33,19 @@ model_download(){
 }
 
 model_generate_config(){
-  MODEL_PATH="${MODEL_REPOSITORY}/vllm_model"
-  [ -d "${MODEL_PATH}/1" ] || mkdir -p "${MODEL_PATH}/1"
+  MODEL_PATH="${MODEL_CACHE}/${HUGGING_FACE_MODEL}"
+  MODEL_CONFIG="${MODEL_REPOSITORY}/vllm_model"
 
-  [ -e /scripts/config.pbtxt ] || return
-  [ -e /scripts/model.json ]   || return
+  [ -d "${MODEL_PATH}" ]        || return
+  [ -e /scripts/config.pbtxt ]  || return
+  [ -e /scripts/model.json ]    || return
+  [ -e "${MODEL_CONFIG}/1" ]    && return
 
-  cp /scripts/config.pbtxt  "${MODEL_PATH}/"
-  cp /scripts/model.json    "${MODEL_PATH}/1/"
+  [ -d "${MODEL_CONFIG}/1" ] || mkdir -p "${MODEL_CONFIG}/1"
+
+  cp /scripts/config.pbtxt  "${MODEL_CONFIG}/"
+  cp /scripts/model.json  "${MODEL_CONFIG}/1"
+  sed -i 's#../models/meta-llama/Llama-2-7b-hf#'"${MODEL_PATH}"'#g' "${MODEL_CONFIG}/1/model.json"
 
   # print_config_pbtxt_via_curl > "${MODEL_PATH}/config.pbtxt"
   # print_config_model_via_echo > "${MODEL_PATH}/1/model.json"
@@ -81,6 +86,6 @@ model_test(){
 # }
 
 model_download
-[ -d "${MODEL_CACHE}/${HUGGING_FACE_MODEL}" ] && model_generate_config
+model_generate_config
 
 echo "Init Complete"
