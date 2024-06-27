@@ -33,21 +33,3 @@ patches:
         value: 
           name: INSTANCE_TYPE
           value: g5.2xlarge
-  - target:
-      kind: Deployment
-      name: triton-vllm-inference-server
-    patch: |-
-      - op: replace
-        path: /spec/template/spec/tolerations
-        value:
-          - effect: NoSchedule
-            key: nvidia-gpu-only
-            operator: Exists
-          - effect: NoSchedule
-            key: nvidia.com/gpu
-            operator: Exists
-      - op: replace
-        path: /spec/template/spec/containers/0/resources
-        value:
-          limits:
-            nvidia.com/gpu: 1

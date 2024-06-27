@@ -75,12 +75,6 @@ spec:
         - mountPath: /opt/app-root/models
           name: inference-server
           subPath: models
-        # - name: config-pbtxt
-        #   mountPath: /opt/app-root/model_repository/meta-llama/Llama-2-7b-hf/config.pbtxt
-        #   subPath: config.pbtxt
-        # - name: config-json
-        #   mountPath: /opt/app-root/model_repository/meta-llama/Llama-2-7b-hf/1/model.json
-        #   subPath: model.json
       restartPolicy: Always
       volumes:
       - name: scripts
@@ -90,15 +84,3 @@ spec:
       - name: inference-server
         persistentVolumeClaim:
           claimName: inference-server
-      # - name: config-pbtxt
-      #   configMap:
-      #     name: triton-vllm-inference-server
-      #     items:
-      #     - key: config.pbtxt
-      #       path: config.pbtxt
-      # - name: config-json
-      #   configMap:
-      #     name: triton-vllm-inference-server
-      #     items:
-      #     - key: model.json
-      #       path: model.json
