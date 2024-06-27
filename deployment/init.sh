@@ -36,6 +36,10 @@ vllm_generate_model_config(){
   print_config_model > "${MODEL_PATH}/1/model.json"
 }
 
+vllm_curl(){
+  curl -X POST localhost:8000/v2/models/vllm_model/generate -d '{"text_input": "What is Triton Inference Server?", "parameters": {"stream": false, "temperature": 0}}'
+}
+
 print_config_pbtxt(){
   URL="https://raw.githubusercontent.com/redhat-na-ssa/demo-llm-journey/main/deployment/config.pbtxt"
   echo "# see ${URL}"
@@ -49,7 +53,8 @@ cat << JSON
 {
   "model": "${MODEL_PATH}",
   "disable_log_requests": "true",
-  "gpu_memory_utilization": 0.9
+  "gpu_memory_utilization": 0.7,
+  "max_split_size_mb": 512
 }
 JSON
 }
