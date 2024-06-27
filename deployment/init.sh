@@ -47,7 +47,7 @@ model_generate_config(){
 }
 
 model_test(){
-  curl -X POST localhost:8000/v2/models/vllm_model/generate -d '{"text_input": "What is Triton Inference Server?", "parameters": {"stream": false, "temperature": 0}}'
+  curl -X POST localhost:8000/v2/models/vllm_model/generate -d '{"text_input": "Who is Red Hat", "parameters": {"max_tokens":"100","stream": false, "temperature": 0}}'
 }
 
 # vllm_client(){
