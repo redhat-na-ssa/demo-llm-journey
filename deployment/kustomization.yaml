@@ -15,10 +15,8 @@ generatorOptions:
   disableNameSuffixHash: true
 
 configMapGenerator:
-  - name: triton-vllm-inference-server
-    files:
-      - config.pbtxt
-      - model.json
-  - name: triton-scripts
+  - name: triton-config
     files:
       - init.sh
+      - config.pbtxt
+      - model.json

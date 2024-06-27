@@ -47,8 +47,8 @@ spec:
           timeoutSeconds: 1
           periodSeconds: 10
           successThreshold: 1
-          failureThreshold: 10
-          initialDelaySeconds: 120
+          failureThreshold: 3
+          initialDelaySeconds: 60
         livenessProbe:
           httpGet:
             path: /v2/health/live
@@ -57,8 +57,8 @@ spec:
           timeoutSeconds: 1
           periodSeconds: 10
           successThreshold: 1
-          failureThreshold: 6
-          initialDelaySeconds: 120
+          failureThreshold: 3
+          initialDelaySeconds: 60
         ports:
         - containerPort: 8000
           name: http
@@ -80,7 +80,7 @@ spec:
       volumes:
       - name: scripts
         configMap:
-          name: triton-scripts
+          name: triton-config
           defaultMode: 0555
       - name: inference-server
         persistentVolumeClaim:
