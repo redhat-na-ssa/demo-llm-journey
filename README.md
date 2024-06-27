@@ -16,6 +16,8 @@ Steps to obtain the Hugging Face Hub Token:
 - Navigate to your user profile, settings, Access Tokens
 - Create a new access token, and copy the details to a safe location
 
+> Note: vLLM requires models in [Hugging Face Transformer Format](https://docs.vllm.ai/en/stable/models/supported_models.html#supported-models), this is why we pick Llama-2-7b-hf over Llama-2-7b, which doesn't have the model in a supported format for serving using vLLM. The Llama models can alternatively be downloaded directly from Meta by following these instructions: https://github.com/meta-llama/llama#download, however they will not be in the correctly supported format.
+
 ## Quick Start Deployment
 
 ```sh
