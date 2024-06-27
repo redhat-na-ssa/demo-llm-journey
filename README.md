@@ -37,7 +37,7 @@ Add your Hugging Face Hub Token credentials to the secret:
 ```sh
 # add hugging face secret to env
 oc -n llm-journey apply -f deployment/hf-secret.yaml
-oc set env --from=secret/hugging-face-info deploy/triton-vllm-inference-server
+oc set env -n llm-journey --from=secret/hugging-face-info deploy/triton-vllm-inference-server
 ```
 
 ## Uninstall
