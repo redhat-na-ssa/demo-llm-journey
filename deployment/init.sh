@@ -53,8 +53,9 @@ cat << JSON
 {
   "model": "${MODEL_PATH}",
   "disable_log_requests": "true",
-  "gpu_memory_utilization": 0.7,
-  "max_split_size_mb": 512
+  "gpu_memory_utilization": 0.8,
+  "enforce_eager": "true",
+  "max_model_len": 4096
 }
 JSON
 }

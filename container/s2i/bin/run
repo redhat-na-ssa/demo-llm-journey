@@ -66,19 +66,21 @@ run_scripts(){
 }
 
 run_triton(){
-  #export TRANSFORMERS_CACHE=/models/
-  #export TRITON_CLOUD_CREDENTIAL_PATH="/opt/cloud_credential.json"
+  # export TRANSFORMERS_CACHE=/models/
+  # export TRITON_CLOUD_CREDENTIAL_PATH="/opt/cloud_credential.json"
 
   # https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/model_repository.html?highlight=aws_access_key_id#s3
   # export TRITON_AWS_MOUNT_DIRECTORY=...
 
   which tritonserver || return
 
+  DEFAULT_TRITON_ARGS='--model-control-mode=poll --repository-poll-secs=60'
+  TRITON_ARGS=${TRITON_ARGS:-${DEFAULT_TRITON_ARGS}}
+
   # ENTRYPOINT ["/opt/nvidia/nvidia_entrypoint.sh", "tritonserver", "--model-repository", "/triton-inference-server/docs/examples/model_repository"]
   tritonserver \
     --model-repository="${MODEL_REPOSITORY}" \
-    --model-control-mode=poll \
-    --repository-poll-secs=60
+    ${TRITON_ARGS}
 }
 
 

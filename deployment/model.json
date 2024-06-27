@@ -1,5 +1,8 @@
+# see https://github.com/vllm-project/vllm/blob/main/vllm/engine/arg_utils.py#L25
 {
   "model": "../models/meta-llama/Llama-2-7b-hf",
   "disable_log_requests": "true",
-  "gpu_memory_utilization": 0.9
+  "gpu_memory_utilization": 0.9,
+  "enforce_eager": "true",
+  "max_model_len": "4096"
 }

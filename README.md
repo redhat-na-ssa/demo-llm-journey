@@ -31,6 +31,7 @@ oc delete -k bootstrap/overlays/odf
 
 - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog
 - https://github.com/triton-inference-server/tutorials/blob/main/Quick_Deploy/vLLM/README.md
+- https://github.com/awslabs/data-on-eks/tree/main/gen-ai/inference/vllm-nvidia-triton-server-gpu
 
 ### Triton Inference Server Wrapper
 
