@@ -4,7 +4,7 @@ This repo helps to quickly configure Titon w/ vllm
 
 ## Obtaining Models from Hugging Face
 
-Most of the models are available on model registry sites, the primary location for most of these is [Hugging Face](https://huggingface.co), which contains the models that are compatible with the inference server backend ([such as vLLM](https://docs.vllm.ai/en/stable/models/supported_models.html)). 
+Most of the models are available on model registry sites, the primary location for most of these is [Hugging Face](https://huggingface.co), which contains the models that are compatible with the inference server backend ([such as vLLM](https://docs.vllm.ai/en/stable/models/supported_models.html)).
 
 While most of these models are open, they are gated - meaning that a user must register for a Hugging Face account, and agree to each specific models terms and conditions before being able to download these.
 
