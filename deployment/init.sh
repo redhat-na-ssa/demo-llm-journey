@@ -36,6 +36,9 @@ model_generate_config(){
   MODEL_PATH="${MODEL_REPOSITORY}/vllm_model"
   [ -d "${MODEL_PATH}/1" ] || mkdir -p "${MODEL_PATH}/1"
 
+  [ -e /scripts/config.pbtxt ] || return
+  [ -e /scripts/model.json ]   || return
+
   cp /scripts/config.pbtxt  "${MODEL_PATH}/"
   cp /scripts/model.json    "${MODEL_PATH}/1/"
 
