@@ -14,6 +14,19 @@ until oc apply -k bootstrap/overlays/odf; do : ; done
 # add hugging face secret to env
 ```
 
+## Uninstall
+
+```sh
+# delete storage cluster
+oc -n openshift-storage delete storagecluster ocs-storagecluster
+
+# remove: deployment with aws gp2/3
+oc delete -k bootstrap/overlays/default
+
+# remove: deployment with odf storage
+oc delete -k bootstrap/overlays/odf
+```
+
 ## Related Links
 
 - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog
