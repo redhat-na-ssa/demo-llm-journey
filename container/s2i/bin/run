@@ -87,5 +87,5 @@ usage
 run_init
 run_scripts
 run_triton
-run_default "$@"
+# run_default "$@"
 run_sleep
