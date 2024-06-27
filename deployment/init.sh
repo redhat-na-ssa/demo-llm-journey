@@ -56,7 +56,7 @@ model_test(){
   URL=${URL:-localhost:8000/v2/models/vllm_model/generate}
   
   PARAMS='"max_tokens": "200", "temperature": 0.1, "stream": false'
-  INPUT="Who is Red Hat"
+  INPUT=${1:-Who is Red Hat}
 
   DATA='{"text_input": "'"${INPUT}"'", "parameters": {'"${PARAMS}"'}}'
   curl -s -X POST "${URL}" -d "${DATA}"
