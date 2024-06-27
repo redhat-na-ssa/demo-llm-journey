@@ -12,6 +12,12 @@ until oc apply -k bootstrap/overlays/default; do : ; done
 until oc apply -k bootstrap/overlays/odf; do : ; done
 
 # add hugging face secret to env
+oc -n llm-journey apply -f deployment/hf-secret.yaml
+oc set env --from=secret/hugging-face-info deploy/triton-vllm-inference-server
+
+# download model
+# oc rsh deploy/triton-vllm-inference-server
+# . /scripts/init.sh; model_download
 ```
 
 ## Uninstall
