@@ -7,6 +7,7 @@ resources:
   # ODF
   - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/components/operators/odf-operator/operator/overlays/stable-4.14?ref=v0.04
   - https://github.com/redhat-na-ssa/demo-ai-gitops-catalog/components/operators/odf-operator/instance/overlays/aws?ref=v0.04
+  - cm-ds-toleration.yaml
 
   # ODF Machine Set
   - odf-machineset
