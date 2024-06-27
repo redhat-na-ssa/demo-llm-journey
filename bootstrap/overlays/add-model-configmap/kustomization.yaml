@@ -9,3 +9,4 @@ patches:
       kind: Deployment
       name: triton-vllm-inference-server
     path: patch-deployment.yaml
+  - path: exclude-pvc.yaml
