@@ -3,5 +3,5 @@
   "disable_log_requests": "true",
   "gpu_memory_utilization": 0.9,
   "enforce_eager": "true",
-  "max_model_len": "4096"
+  "max_model_len": 4096
 }
