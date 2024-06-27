@@ -32,10 +32,11 @@ patches:
       name: inference-server
     patch: |-
       - op: replace
-        path: spec/accessModes
-        value: ReadWriteMany
+        path: /spec/accessModes
+        value: 
+          - ReadWriteMany
       - op: add
-        path: spec/storageClassName
+        path: /spec/storageClassName
         value: ocs-storagecluster-cephfs
   - target:
       kind: StorageCluster
