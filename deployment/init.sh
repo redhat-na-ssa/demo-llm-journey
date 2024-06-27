@@ -25,4 +25,19 @@ download_model_from_huggingface(){
     "${HUGGING_FACE_MODEL}"
 }
 
+generate_vllm_model_config(){
+  MODEL_PATH="${MODEL_REPOSITORY}/vllm_model"
+  [ -d "${MODEL_PATH}/1" ] || mkdir -p "${MODEL_PATH}/1"
+
+cat << JSON > "${MODEL_PATH}/config.pbtxt"
+# see https://github.com/triton-inference-server/tutorials/blob/main/Quick_Deploy/vLLM/README.md
+# see https://raw.githubusercontent.com/redhat-na-ssa/demo-llm-journey/main/deployment/config.pbtxt
+JSON
+
+cat << JSON > "${MODEL_PATH}/1/model.json"
+# see https://github.com/triton-inference-server/tutorials/blob/main/Quick_Deploy/vLLM/README.md
+# see https://raw.githubusercontent.com/redhat-na-ssa/demo-llm-journey/main/deployment/model.json
+JSON
+}
+
 echo "Init Complete"
