@@ -43,14 +43,14 @@ vllm_curl(){
   curl -X POST localhost:8000/v2/models/vllm_model/generate -d '{"text_input": "What is Triton Inference Server?", "parameters": {"stream": false, "temperature": 0}}'
 }
 
-vllm_client(){
-  URL=https://github.com/awslabs/data-on-eks/raw/main/gen-ai/inference/vllm-nvidia-triton-server-gpu/triton-client/prompts.txt
-  curl -sLO "${URL}"
-  URL=https://github.com/awslabs/data-on-eks/raw/main/gen-ai/inference/vllm-nvidia-triton-server-gpu/triton-client/triton-client.py
-  curl -sLO "${URL}"
+# vllm_client(){
+#   URL=https://github.com/awslabs/data-on-eks/raw/main/gen-ai/inference/vllm-nvidia-triton-server-gpu/triton-client/prompts.txt
+#   curl -sLO "${URL}"
+#   URL=https://github.com/awslabs/data-on-eks/raw/main/gen-ai/inference/vllm-nvidia-triton-server-gpu/triton-client/triton-client.py
+#   curl -sLO "${URL}"
 
-  python3 triton-client.py
-}
+#   python3 triton-client.py
+# }
 
 # print_config_pbtxt_via_curl(){
 #   URL="https://raw.githubusercontent.com/redhat-na-ssa/demo-llm-journey/main/deployment/config.pbtxt"
