@@ -15,9 +15,9 @@ spec:
   tags:
   - annotations:
       openshift.io/imported-from: quay.io/carl_mes/triton-vllm-inference-server:latest
-    from:
-      kind: DockerImage
-      name: quay.io/carl_mes/triton-vllm-inference-server:latest
+    # from:
+    #   kind: DockerImage
+    #   name: quay.io/carl_mes/triton-vllm-inference-server:latest
     name: latest
     referencePolicy:
       type: Local
