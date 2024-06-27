@@ -1,4 +1,3 @@
-# see https://github.com/vllm-project/vllm/blob/main/vllm/engine/arg_utils.py#L25
 {
   "model": "../models/meta-llama/Llama-2-7b-hf",
   "disable_log_requests": "true",
